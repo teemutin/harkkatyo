@@ -1,9 +1,32 @@
-import React from 'react'
+import {useState} from 'react'
 
 function Registerpage() {
+    const [userData,setUserData] = useState({})
+    const handleChange = (e) => {
+        setUserData({...userData, [e.target.id]: e.target.value})
+    }
+    const submitData = (e) => {
+        e.preventDefault()
+        console.log(userData)
+        /*
+        fetch("/api/book", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(userData),
+            mode: "cors"
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+        */
+
+    }
   return (
-    <div>
-        <h1>Login page</h1>
+    <div className="App">
+        <h1>Registration</h1>
         <form onSubmit={submitData} onChange={handleChange}>
             <label> Name:
                 <input type="string" id="name"/>

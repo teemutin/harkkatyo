@@ -4,7 +4,10 @@ function Indexpage() {
 
 
   return (
-    <div>Indexpage</div>
+    <div className="App">
+        <h1>Code questions</h1>
+
+    </div>
   )
 }
 

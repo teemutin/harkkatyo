@@ -12,14 +12,16 @@ function App() {
     <Router>
     <div className="App">
       <Topbar/>
-      <Indexpage/>
+      
     </div>
     <Routes>
+      <Route path="/" element={<Indexpage/>}/>
       <Route path="/login" element={<Loginpage/>}/>
       <Route path="/register" element={<Registerpage/>}/>
     </Routes>
     </Router>
   );
 }
+//<Indexpage/>
 
 export default App;
