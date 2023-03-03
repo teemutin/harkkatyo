@@ -17,6 +17,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.get("/api/hello", (req,res) => {
+    console.log("päivää")
+    res.send("Päivää")
+});
+
 if (process.env.NODE_ENV === "development") {
     var corsOptions = {
         origin: "http://localhost:3000",
