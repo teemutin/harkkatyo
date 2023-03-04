@@ -1,6 +1,8 @@
 import {useState} from 'react'
-
+//renders register page
 function Registerpage() {
+    //take user input from the form and save it in userdata
+    //send userdata to db
     const [userData,setUserData] = useState({})
     const handleChange = (e) => {
         setUserData({...userData, [e.target.id]: e.target.value})
