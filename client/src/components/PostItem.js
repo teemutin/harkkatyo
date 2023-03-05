@@ -7,7 +7,7 @@ function PostItem({post}) {
     const { t, i18n } = useTranslation();
     //console.log(post)
   return (
-    <div>  {t("Header")}: {post.header}  
+    <div>  {t("Header")}: 
         <Link to={`/post/${post.header}`}>{post.header}</Link>
     </div>
   )
