@@ -1,5 +1,5 @@
 import {useState} from 'react'
-//renders register page
+//renders register page with form
 function Registerpage() {
     //take user input from the form and save it in userdata
     //send userdata to db
@@ -7,11 +7,12 @@ function Registerpage() {
     const handleChange = (e) => {
         setUserData({...userData, [e.target.id]: e.target.value})
     }
+    //on submit, make a call to server "/api/user/register" for registration
     const submitData = (e) => {
         e.preventDefault()
         console.log(userData)
-        /*
-        fetch("/api/book", {
+        
+        fetch("/api/user/register", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -23,7 +24,7 @@ function Registerpage() {
             .then(data => {
                 console.log(data)
             })
-        */
+        
 
     }
   return (
@@ -33,12 +34,9 @@ function Registerpage() {
             <label> Name:
                 <input type="string" id="name"/>
             </label>
-            <label> Author:
-                <input type="string" id="author"/>
+            <label> Password:
+                <input type="string" id="password"/>
             </label> 
-            <label> Pages:
-                <input type="number" id="pages"/>
-            </label>
             <label>
                 <input type="submit" id="submit"/>
             </label>

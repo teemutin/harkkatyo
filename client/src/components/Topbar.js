@@ -7,7 +7,8 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {Link} from "react-router-dom";
-//render topbar with all the links and buttons, using mui
+//render topbar with all the links and buttons, with mui
+//built on https://mui.com/material-ui/react-app-bar/ example
 function ButtonAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>

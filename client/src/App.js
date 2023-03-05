@@ -11,6 +11,7 @@ import Topbar from './components/Topbar';
 
 function App() {
   //fetch all posts in db and put them on display
+  /*
   const [posts, setPosts] = useState([])
   useEffect(() => {
     fetch("/api/allbooks")
@@ -18,7 +19,7 @@ function App() {
     .then(json => setPosts(json))
     //console.log(books)
   }, [])
-
+  */
   //render app, with all the routes available
   return (
     <Router>

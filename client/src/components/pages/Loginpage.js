@@ -7,11 +7,12 @@ function Loginpage() {
     const handleChange = (e) => {
         setUserData({...userData, [e.target.id]: e.target.value})
     }
+    //on submit, make a call to server "/api/user/register" for registration
     const submitData = (e) => {
         e.preventDefault()
         console.log(userData)
-        /*
-        fetch("/api/book", {
+        
+        fetch("/api/user/register", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -23,28 +24,19 @@ function Loginpage() {
             .then(data => {
                 console.log(data)
             })
-        */
+        
 
     }
-
-
-
-
-
-
   return (
     <div className="App">
-        <h1 className="App">Login</h1>
+        <h1>Registration</h1>
         <form onSubmit={submitData} onChange={handleChange}>
             <label> Name:
                 <input type="string" id="name"/>
             </label>
-            <label> Author:
-                <input type="string" id="author"/>
+            <label> Password:
+                <input type="string" id="password"/>
             </label> 
-            <label> Pages:
-                <input type="number" id="pages"/>
-            </label>
             <label>
                 <input type="submit" id="submit"/>
             </label>
