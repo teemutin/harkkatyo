@@ -58,6 +58,8 @@ app.post("/api/post", async (req,res) => {
         
 
 })
+//takes comment and header
+//finds correct post and updates the comment array 
 app.post("/api/post/comment", async (req,res) => {
     console.log("tehdään kommenttia")
     console.log(req.body.post)
@@ -68,12 +70,7 @@ app.post("/api/post/comment", async (req,res) => {
         .then((result) => {
             console.log("yksi: "+result)
         })
-        /*
-        Post.find()
-        .then((result) => {
-            console.log(result)
-        })
-        */
+
         res.json({response: "ok"})
     } catch (err) {
         console.log(err)
@@ -83,7 +80,8 @@ app.post("/api/post/comment", async (req,res) => {
 
 })
 
-//registers new user from user input
+//registers new user from user input, saves it in db
+//takes in name, and password. hashes pw with bcrypt
 app.post("/api/user/register", async (req,res) => {
     console.log("tehdään käyttäjää")
     try {
@@ -112,7 +110,8 @@ app.post("/api/user/register", async (req,res) => {
     }
 
 });
-//login user
+//verifies user login
+//takes in name and password and checks if they match ones is db
 app.post("/api/user/login", async (req,res) => {
     console.log("kirjaudutaan käyttäjää")
     console.log(req.body)
@@ -137,18 +136,8 @@ app.post("/api/user/login", async (req,res) => {
                     process.env.SECRET
                   );
                   console.log("login succesful")
-                  //res.cookie("token", accessToken, {httpOnly: true})
                   res.json({accessToken})
-                  /*
-                  jwt.sign(
-                    jwtPayload,
-                    process.env.SECRET,
-                    (err, token) => {
-                        console.log("tokeni on"+token)
-                      res.json({success: true, token});
-                    }
-                  );
-                  */
+                  
                 }
                 if(!isMatch) {
                     console.log("wrong password")
@@ -156,20 +145,6 @@ app.post("/api/user/login", async (req,res) => {
                 }
               })
         
-            /*
-            bcrypt.compare(req.body.password, user.password, {err, isMatch} => {
-                if(err) {
-
-                }
-
-                if(isMatch) {
-                    const jwtPayload = {
-                        id: user._id,
-                        name: user.name
-                    }
-                }
-            })
-            */
         }
 })
 
@@ -184,6 +159,7 @@ app.get("/api/allposts", async (req,res) => {
     })
 });
 //fetch one post from db using params
+//takes in header
 app.post('/api/post/:header', async (req,res) => {
     console.log("Tätä kutsuttiin")
     console.log(req.body)
