@@ -20,12 +20,12 @@ function ButtonAppBar() {
           </Typography>
           
           <Button component={Link} to="/register"color="inherit">Register</Button>
-          <Button component={Link} to="/login"color="inherit">Login</Button>    
+             
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
-
+//<Button component={Link} to="/login"color="inherit">Login</Button> 
 //<Button color="inherit">Login</Button>
 export default ButtonAppBar;

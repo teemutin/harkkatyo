@@ -10,6 +10,7 @@ import Topbar from './components/Topbar';
 
 
 function App() {
+  
   //fetch all posts in db and put them on display
   /*
   const [posts, setPosts] = useState([])
@@ -31,12 +32,14 @@ function App() {
     <Routes>
       <Route path="/makepost" element={<Makepostpage/>}/>
       <Route path="/" element={<Indexpage/>}/>
-      <Route path="/login" element={<Loginpage/>}/>
+      <Route path="/login" element={<Loginpage />}/>
       <Route path="/register" element={<Registerpage/>}/>
     </Routes>
     </Router>
   );
 }
 //<Indexpage/>
+//<Topbar/>
 
+//<Route path="/" element={<Indexpage setToken={setToken}/>}/>
 export default App;

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -59,15 +61,17 @@ app.post("/api/post", async (req,res) => {
 app.post("/api/user/register", async (req,res) => {
     console.log("tehdään käyttäjää")
     try {
-        //check if user exists alrdy, stop if does
+        //check if name for user exists alrdy, stop if does
         let user2 = await User.findOne({name: req.body.name})
         if(user2 != null) {
             res.status(403).json({Name: "Name already in use."})
             console.log("user exists alrdy")
             return
         }
+        //hash the password with bcrypt
         let hashedPassword = await bcrypt.hash(req.body.password, 10)
         console.log(hashedPassword)
+        //create new db index and save it
         const user = new User ({
             name: req.body.name,
             password: hashedPassword
@@ -82,30 +86,46 @@ app.post("/api/user/register", async (req,res) => {
     }
 
 });
+//login user
 app.post("/api/user/login", async (req,res) => {
     console.log("kirjaudutaan käyttäjää")
     console.log(req.body)
+    //search db for matching name
     let user = await User.findOne({name: req.body.name})
         if(!user) {
             return res.json({msg: "login failed"})
         } else {
+            //check if hashed passwords match
             bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
                 if(err) {
                     console.log("no match/error" + err)
-                    res.json({success: "failure"});
+                    res.json({fail: "error"});
                 }
+                //jwt is sent if succesful
                 if(isMatch) {
                   const jwtPayload = {
-                    id: user._id,
-                    username: user.username
+                    name: user.name
                   }
+                  const accessToken = jwt.sign(
+                    jwtPayload,
+                    process.env.SECRET
+                  );
+                  console.log("login succesful")
+                  res.json({accessToken})
+                  /*
                   jwt.sign(
                     jwtPayload,
                     process.env.SECRET,
                     (err, token) => {
+                        console.log("tokeni on"+token)
                       res.json({success: true, token});
                     }
                   );
+                  */
+                }
+                if(!isMatch) {
+                    console.log("wrong password")
+                    res.json({fail: "wrong password"});
                 }
               })
         

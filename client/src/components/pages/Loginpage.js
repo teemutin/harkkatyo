@@ -1,8 +1,9 @@
 import {useState} from 'react'
 
-function Loginpage() {
+function Loginpage({setToken, token}) {
     //take user input from the form and save it in userdata
     //send userdata to db
+    const [user, setUser] = useState({})
     const [userData,setUserData] = useState({})
     const handleChange = (e) => {
         setUserData({...userData, [e.target.id]: e.target.value})
@@ -10,7 +11,7 @@ function Loginpage() {
     //on submit, make a call to server "/api/user/register" for registration
     const submitData = (e) => {
         e.preventDefault()
-        console.log(userData)
+        //console.log(userData)
         
         fetch("/api/user/login", {
             method: "POST",
@@ -23,19 +24,22 @@ function Loginpage() {
             .then(response => response.json())
             .then(data => {
                 console.log(data)
+                if(data.accessToken) {
+                    setToken(data.accessToken)
+                }
             })
         
 
     }
   return (
     <div className="App">
-        <h1>Login</h1>
+        <h3>Login</h3>
         <form onSubmit={submitData} onChange={handleChange}>
-            <label> Name:
-                <input type="string" id="name"/>
+            <label> 
+                <input placeholder="Name"type="string" id="name"/>
             </label>
-            <label> Password:
-                <input type="string" id="password"/>
+            <label> 
+                <input placeholder="Password"type="string" id="password"/>
             </label> 
             <label>
                 <input type="submit" id="submit"/>
