@@ -1,12 +1,14 @@
 import {useEffect, useState} from 'react'
 
-//page for making posts
-function Makepostpage() {
+//Page for creating new posts. Takes user input in form and sends it to server
+// Calls "/api/post"
+function Makepostpage({}) {
     const [userData,setUserData] = useState({})
     //keeps values updated
     const handleChange = (e) => {
         setUserData({...userData, [e.target.id]: e.target.value})
     }
+    //creates post call on submit
     const submitData = (e) => {
         console.log("tapahtuuko mitään")
         e.preventDefault()

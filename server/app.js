@@ -41,6 +41,7 @@ app.get("/api/hello", (req,res) => {
 app.post("/api/post", async (req,res) => {
     console.log("tehdään postia")
     console.log(req.body)
+    
    
     const post = new Post ({
         author: req.body.author,
@@ -57,6 +58,31 @@ app.post("/api/post", async (req,res) => {
         
 
 })
+app.post("/api/post/comment", async (req,res) => {
+    console.log("tehdään kommenttia")
+    console.log(req.body.post)
+    console.log(req.body.header)
+    try {
+        await Post.updateOne({header: req.body.header}, { $push: {comments: req.body.post}})
+        Post.findOne({header: req.body.header})
+        .then((result) => {
+            console.log("yksi: "+result)
+        })
+        /*
+        Post.find()
+        .then((result) => {
+            console.log(result)
+        })
+        */
+        res.json({response: "ok"})
+    } catch (err) {
+        console.log(err)
+        res.send(err)
+    }
+        
+
+})
+
 //registers new user from user input
 app.post("/api/user/register", async (req,res) => {
     console.log("tehdään käyttäjää")
@@ -111,6 +137,7 @@ app.post("/api/user/login", async (req,res) => {
                     process.env.SECRET
                   );
                   console.log("login succesful")
+                  //res.cookie("token", accessToken, {httpOnly: true})
                   res.json({accessToken})
                   /*
                   jwt.sign(
@@ -144,6 +171,32 @@ app.post("/api/user/login", async (req,res) => {
             })
             */
         }
+})
+
+//fetch all posts from db
+app.get("/api/allposts", async (req,res) => {
+    Post.find()
+    .then((result) => {
+        res.send(result)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+});
+//fetch one post from db using params
+app.post('/api/post/:header', async (req,res) => {
+    console.log("Tätä kutsuttiin")
+    console.log(req.body)
+    
+    Post.findOne({header: req.body.header})
+    .then((result) => {
+        console.log(result)
+        res.send(result)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+    
 })
 
 //setting cors options, so we can connect to server from client on dev env

@@ -5,23 +5,18 @@ import Indexpage from './components/pages/Indexpage';
 import Loginpage from './components/pages/Loginpage';
 import Registerpage from './components/pages/Registerpage';
 import Makepostpage from './components/pages/Makepostpage';
+import Postpage from './components/pages/Postpage';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import Topbar from './components/Topbar';
+import { useTranslation } from 'react-i18next';
+import './i18n';
 
 
+//simple "root" app, with all the routes available
 function App() {
+  const { t, i18n } = useTranslation();
   
-  //fetch all posts in db and put them on display
-  /*
-  const [posts, setPosts] = useState([])
-  useEffect(() => {
-    fetch("/api/allbooks")
-    .then(response => response.json())
-    .then(json => setPosts(json))
-    //console.log(books)
-  }, [])
-  */
-  //render app, with all the routes available
+  
   return (
     <Router>
     <div className="App">
@@ -30,6 +25,7 @@ function App() {
       
     </div>
     <Routes>
+      <Route path="/post/:header" element={<Postpage/>}/>
       <Route path="/makepost" element={<Makepostpage/>}/>
       <Route path="/" element={<Indexpage/>}/>
       <Route path="/login" element={<Loginpage />}/>
@@ -38,8 +34,7 @@ function App() {
     </Router>
   );
 }
-//<Indexpage/>
-//<Topbar/>
+
 
 //<Route path="/" element={<Indexpage setToken={setToken}/>}/>
 export default App;

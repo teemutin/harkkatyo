@@ -1,21 +1,22 @@
 import {useState} from 'react'
 import { useTranslation } from "react-i18next"
-//renders really simple register page, takes users form data and sends it to server
-//Calls "/api/user/register"
-function Registerpage() {
+
+//Component for writing comments
+//Takes user input and sends it to server
+//Calls "/api/post/comment"
+function WriteComment({header}) {
     const { t, i18n } = useTranslation();
-    //take user input from the form and save it in userdata
-    //send userdata to db
     const [userData,setUserData] = useState({})
+    //keeps values updated
     const handleChange = (e) => {
-        setUserData({...userData, [e.target.id]: e.target.value})
+        setUserData({...userData, [e.target.id]: e.target.value, header})
     }
-    //on submit, make a call to server "/api/user/register" for registration
     const submitData = (e) => {
+        console.log()
         e.preventDefault()
         console.log(userData)
-        
-        fetch("/api/user/register", {
+
+        fetch("/api/post/comment", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -27,19 +28,14 @@ function Registerpage() {
             .then(data => {
                 console.log(data)
             })
-        
 
     }
   return (
-    <div className="App">
-        <h1>{t("Registration")}</h1>
+    <div>
         <form onSubmit={submitData} onChange={handleChange}>
-            <label> {t("Name")}:
-                <input type="string" id="name"/>
+            <label> {t("Comment")}:
+                <textarea type="string" id="post" cols={60}rows={4} required/>
             </label>
-            <label> {t("Password")}:
-                <input type="string" id="password"/>
-            </label> 
             <label>
                 <input type="submit" id="submit"/>
             </label>
@@ -48,4 +44,4 @@ function Registerpage() {
   )
 }
 
-export default Registerpage
+export default WriteComment
