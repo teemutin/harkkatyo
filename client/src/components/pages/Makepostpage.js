@@ -25,6 +25,7 @@ function Makepostpage({}) {
             .then(response => response.json())
             .then(data => {
                 console.log(data)
+                alert("Post created")
             })
 
     }

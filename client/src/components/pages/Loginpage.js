@@ -40,7 +40,8 @@ function Loginpage({setToken, token}) {
                     setToken(data.accessToken)
                     const decoded = jwt(data.accessToken)
                     setUser(decoded)
-                    cookies.set("jwt_authorization", data.accessToken) 
+                    cookies.set("jwt_authorization", data.accessToken)
+                    alert("Login succesful")
                 }
             })
         
@@ -48,13 +49,13 @@ function Loginpage({setToken, token}) {
     }
   return (
     <div className="App">
-        <h3>Login</h3>
+        <h3>{t("Login")}</h3>
         <form onSubmit={submitData} onChange={handleChange}>
-            <label> 
-                <input placeholder={t("Name")} type="string" id="name"/>
+            <label> {t("Name")}
+                <input placeholder="Name" type="string" id="name"/>
             </label>
-            <label> 
-                <input placeholder={t("Password")} type="string" id="password"/>
+            <label> {t("Password")}
+                <input placeholder="Password" type="string" id="password"/>
             </label> 
             <label>
                 <input type="submit" id="submit"/>

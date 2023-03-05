@@ -27,6 +27,7 @@ function WriteComment({header}) {
             .then(response => response.json())
             .then(data => {
                 console.log(data)
+                alert("Comment posted, reload page")
             })
 
     }

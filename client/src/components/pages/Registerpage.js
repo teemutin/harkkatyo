@@ -26,6 +26,7 @@ function Registerpage() {
             .then(response => response.json())
             .then(data => {
                 console.log(data)
+                alert("Registration succesful")
             })
         
 

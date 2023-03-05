@@ -8,7 +8,7 @@ function PostItem({post}) {
     //console.log(post)
   return (
     <div>  {t("Header")}: {post.header}  
-        <Link to={`/post/${post.header}`}>{post.header}</Link>{post.author}
+        <Link to={`/post/${post.header}`}>{post.header}</Link>
     </div>
   )
 }

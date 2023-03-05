@@ -32,15 +32,16 @@ function Indexpage() {
         <h2>{check ? "Logged in" : ""}</h2>
         {check ? "" : <Loginpage setToken={setToken} token={token}/>}
         <h1>{t("Code questions")}</h1>
-        {posts.map((post) => (
-            <PostItem post={post}/>
-        ))}
         {check ? 
         <Link to="/makepost">
             <button>{t("Make a post")}</button>
         </Link>
         : <h3>{t("Login to make a post")}</h3>
         }
+        {posts.map((post) => (
+            <PostItem post={post}/>
+        ))}
+        
 
 
 
