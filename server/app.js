@@ -67,6 +67,7 @@ app.post("/api/user/register", async (req,res) => {
             return
         }
         let hashedPassword = await bcrypt.hash(req.body.password, 10)
+        console.log(hashedPassword)
         const user = new User ({
             name: req.body.name,
             password: hashedPassword
@@ -83,15 +84,16 @@ app.post("/api/user/register", async (req,res) => {
 });
 app.post("/api/user/login", async (req,res) => {
     console.log("kirjaudutaan käyttäjää")
-    User.findOne({name: req.body.name}, (err,user) => {
-        if(err) {
-            console.log(err)
-        }
+    console.log(req.body)
+    let user = await User.findOne({name: req.body.name})
         if(!user) {
             return res.json({msg: "login failed"})
         } else {
             bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-                if(err) throw err;
+                if(err) {
+                    console.log("no match/error" + err)
+                    res.json({success: "failure"});
+                }
                 if(isMatch) {
                   const jwtPayload = {
                     id: user._id,
@@ -122,8 +124,6 @@ app.post("/api/user/login", async (req,res) => {
             })
             */
         }
-        
-    })
 })
 
 //setting cors options, so we can connect to server from client on dev env

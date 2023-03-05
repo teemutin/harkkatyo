@@ -12,7 +12,7 @@ function Loginpage() {
         e.preventDefault()
         console.log(userData)
         
-        fetch("/api/user/register", {
+        fetch("/api/user/login", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -29,7 +29,7 @@ function Loginpage() {
     }
   return (
     <div className="App">
-        <h1>Registration</h1>
+        <h1>Login</h1>
         <form onSubmit={submitData} onChange={handleChange}>
             <label> Name:
                 <input type="string" id="name"/>
